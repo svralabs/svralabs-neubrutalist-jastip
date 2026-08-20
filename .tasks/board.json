@@ -1,0 +1,160 @@
+{
+  "project_name": "svralabs-neubrutalist-jastip",
+  "architecture_summary": "Modular React app. Pages in src/pages/. Shared UI in src/components/. Neubrutalist CSS via Tailwind. React Router v6 for navigation. No state management lib (use React context for auth/user).",
+  "tickets": [
+    {
+      "id": "TASK-001",
+      "role": "frontend",
+      "model": "hermes-auto",
+      "title": "Create base Tailwind config and global styles",
+      "source_screen": "",
+      "description": "Set up Tailwind CSS. Neubrutalist theme: 3px solid black borders, high-contrast colors, system-ui font stack. Global styles for body, headings, buttons. Reset margins/padding.",
+      "target_files": [
+        "tailwind.config.js",
+        "src/index.css",
+        "src/App.css"
+      ],
+      "acceptance_criteria": [
+        "Tailwind config match neubrutalist design (black borders, bold colors)",
+        "Global styles apply to all pages",
+        "No default browser margins/padding"
+      ],
+      "status": "DONE"
+    },
+    {
+      "id": "TASK-002",
+      "role": "frontend",
+      "model": "hermes-auto",
+      "title": "Build shared UI components from showcase screens",
+      "source_screen": "thirtyspace_component_showcase_inputs, thirtyspace_button_showcase, thirtyspace_badge_showcase",
+      "description": "Extract reusable components: Button, Input, Badge. Neubrutalist styling. Props: variant, size, disabled. Storybook-style showcase page for visual regression testing.",
+      "target_files": [
+        "src/components/Button.jsx",
+        "src/components/Input.jsx",
+        "src/components/Badge.jsx",
+        "src/pages/ComponentShowcase.jsx"
+      ],
+      "acceptance_criteria": [
+        "Components match Stitch design pixel-perfect",
+        "All variants/sizes work",
+        "Disabled state functional",
+        "Showcase page render all variants"
+      ],
+      "status": "DONE"
+    },
+    {
+      "id": "TASK-003",
+      "role": "frontend",
+      "model": "hermes-auto",
+      "title": "Implement auth pages (login/register)",
+      "source_screen": "thirtyspace_login_register_mobile",
+      "description": "Login/Register page. Form validation: email format, password min 8 chars. Neubrutalist styling. Mock auth flow (no backend yet).",
+      "target_files": [
+        "src/pages/Auth.jsx",
+        "src/context/AuthContext.jsx"
+      ],
+      "acceptance_criteria": [
+        "Form match Stitch design",
+        "Validation errors show inline",
+        "Mock login persist in context",
+        "Redirect to home after login"
+      ],
+      "status": "DONE"
+    },
+    {
+      "id": "TASK-004",
+      "role": "frontend",
+      "model": "hermes-auto",
+      "title": "Build home screen with hero and catalog preview",
+      "source_screen": "thirtyspace_hero_section, jastip_home_screen_mobile, jastip_catalog_jepang_trip_1",
+      "description": "Home page: hero section + catalog grid. Neubrutalist layout. Responsive: mobile/desktop. Mock data for catalog items.",
+      "target_files": [
+        "src/pages/Home.jsx",
+        "src/data/mockCatalog.js"
+      ],
+      "acceptance_criteria": [
+        "Hero section match Stitch design",
+        "Catalog grid responsive",
+        "Mock data render correctly",
+        "Click catalog item navigate to detail"
+      ],
+      "status": "DONE"
+    },
+    {
+      "id": "TASK-005",
+      "role": "frontend",
+      "model": "hermes-auto",
+      "title": "Implement catalog detail pages",
+      "source_screen": "jastip_catalog_jepang_trip_2",
+      "description": "Catalog detail page. Neubrutalist layout. Mock data for trip details. Back navigation to home.",
+      "target_files": [
+        "src/pages/CatalogDetail.jsx"
+      ],
+      "acceptance_criteria": [
+        "Page match Stitch design",
+        "Mock data render correctly",
+        "Back button functional"
+      ],
+      "status": "DONE"
+    },
+    {
+      "id": "TASK-006",
+      "role": "frontend",
+      "model": "hermes-auto",
+      "title": "Build order form page",
+      "source_screen": "jastip_order_form_mobile",
+      "description": "Order form: input fields, quantity selector, submit button. Neubrutalist styling. Form validation. Mock submission.",
+      "target_files": [
+        "src/pages/OrderForm.jsx"
+      ],
+      "acceptance_criteria": [
+        "Form match Stitch design",
+        "Validation errors show inline",
+        "Mock submission log to console",
+        "Submit button disabled when invalid"
+      ],
+      "status": "DONE"
+    },
+    {
+      "id": "TASK-007",
+      "role": "frontend",
+      "model": "hermes-auto",
+      "title": "Create 404 and loader components",
+      "source_screen": "thirtyspace_404_navigation_bento_variant, thirtyspace_loader_showcase",
+      "description": "404 page: neubrutalist bento layout. Loader: animated spinner. Both match Stitch design.",
+      "target_files": [
+        "src/components/Loader.jsx",
+        "src/pages/NotFound.jsx"
+      ],
+      "acceptance_criteria": [
+        "404 page match Stitch design",
+        "Loader animation smooth",
+        "Loader show during async operations"
+      ],
+      "status": "DONE"
+    },
+    {
+      "id": "TASK-008",
+      "role": "frontend",
+      "model": "hermes-auto",
+      "title": "App shell, navigation bar, and router wiring (src/App.jsx)",
+      "source_screen": "thirtyspace_sidebar_showcase, thirtyspace_table_showcase",
+      "description": "App shell: sidebar navigation, header. React Router v6 setup. Protected routes for auth. Neubrutalist styling. Responsive layout.",
+      "target_files": [
+        "src/App.jsx",
+        "src/components/Sidebar.jsx",
+        "src/components/Header.jsx",
+        "src/routes.jsx"
+      ],
+      "acceptance_criteria": [
+        "Sidebar match Stitch design",
+        "Navigation functional",
+        "Protected routes redirect to login",
+        "Responsive layout (mobile/desktop)"
+      ],
+      "status": "DONE"
+    }
+  ],
+  "status": "IN_PROGRESS",
+  "updated_at": "2026-08-20 11:01:30"
+}
