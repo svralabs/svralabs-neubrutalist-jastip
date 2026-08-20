@@ -1,31 +1,10 @@
 import React from 'react';
-
-export default function Badge({
-  variant = 'primary',
-  size = 'medium',
-  children,
-  className = '',
-  ...props
-}) {
-  const baseClasses = 'inline-flex items-center justify-center rounded-full font-label-bold uppercase';
-  const variantClasses = {
-    primary: 'bg-primary-container text-on-primary-container',
-    secondary: 'bg-secondary-container text-on-secondary-container',
-    accentPink: 'bg-accent-pink text-white',
-    accentPurple: 'bg-accent-purple text-white',
-    accentOrange: 'bg-accent-orange text-white',
+export default function Badge({ children, variant = 'default', className = '' }) {
+  const variants = {
+    default: "bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-300",
+    success: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300",
+    warning: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300",
+    primary: "bg-primary/10 text-primary dark:text-primary-fixed"
   };
-  const sizeClasses = {
-    small: 'px-md py-xs text-xs',
-    medium: 'px-lg py-sm text-label-bold',
-    large: 'px-xl py-md text-xl',
-  };
-
-  const badgeClasses = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
-
-  return (
-    <span className={badgeClasses} {...props}>
-      {children}
-    </span>
-  );
+  return <span className={`px-2.5 py-1 text-xs font-semibold rounded-full ${variants[variant] || variants.default} ${className}`}>{children}</span>;
 }
