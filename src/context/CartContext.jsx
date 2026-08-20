@@ -1,38 +1,48 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-let state = {
-  items: [
-    { id: '1', name: 'Premium Item', price: 29.99, quantity: 1, image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=500' }
-  ]
-};
-const listeners = new Set();
-const notify = () => listeners.forEach(l => l(state));
+import { createContext, useContext, useState } from 'react';
 
-export const CartContext = createContext(state);
-export const CartProvider = ({ children }) => {
-  const [items, setItems] = useState(state.items);
+const CartContext = createContext();
+
+export function CartProvider({ children }) {
+  const [cartItems, setCartItems] = useState([
+    {
+      id: 1,
+      name: 'Gentlewoman Canvas Tote',
+      description: 'Premium Edition • Beige',
+      price: 790,
+      quantity: 1,
+      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDtANHVuFK2hh66As02APMFNFUcob1Xh59aStzsce5B3FN0_ivN9q25gZ3VFj9KpIKgWdtAYEkU2j6_iUeenO3cjP2L5KAt3daVk32Kh4hO2Nc4eA1uehuz22sz8N4WVFGSP1G51oPiwVGv6CsE0qm7SesxKHUT3SXs_G72QAsTEtVfXhikJwrCTyHaFokF7rM6NM5ij32Xx51LJMh-d04jO2vUpU2xsziwqBe0Sv9P61d2WEww29nrkg'
+    },
+    {
+      id: 2,
+      name: 'Mistine Glow Serum',
+      description: 'Skin Brightening • 30ml',
+      price: 450,
+      quantity: 2,
+      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDfObMVNMTGHQUgHI51iLdJnmPzcXg06Wn0gpqBu9QU7p7KdrTjc4fFU9AsNesIEakWqUoT-au2L_o-UnPL4kBbeD6DsuJfyXvmgGOCmIrqQFGQbNS3GEyOLoFZCytgZee2GXIi62moWMpwKZyuP6djbG25fB5GryeuOyA4qvexbfuRQnOPLShyA6_k9bVdr2IE2UMV5qkJeyFZ0TAfN94qB2RAPB5ZMsEVXsxdN8WlhLf2yZdPPi28OA'
+    }
+  ]);
+
+  const updateQuantity = (id, newQuantity) => {
+    setCartItems(cartItems.map(item =>
+      item.id === id ? { ...item, quantity: newQuantity } : item
+    ));
+  };
+
+  const removeItem = (id) => {
+    setCartItems(cartItems.filter(item => item.id !== id));
+  };
+
+  const calculateTotal = () => {
+    return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+  };
+
   return (
-    <CartContext.Provider value={{ items, addItem: (i) => setItems(prev => [...prev, i]), removeItem: (id) => setItems(prev => prev.filter(x => x.id !== id)) }}>
+    <CartContext.Provider value={{ cartItems, updateQuantity, removeItem, calculateTotal }}>
       {children}
     </CartContext.Provider>
   );
-};
-export const useCart = () => useContext(CartContext) || state;
+}
 
-export const useCartStore = (selector) => {
-  const [, setTick] = useState(0);
-  useEffect(() => {
-    const l = () => setTick(t => t + 1);
-    listeners.add(l);
-    return () => listeners.delete(l);
-  }, []);
-  const actions = {
-    items: state.items,
-    getTotalPrice: () => state.items.reduce((acc, i) => acc + (i.price * i.quantity), 0).toFixed(2),
-    addItem: (item) => { state.items = [...state.items, item]; notify(); },
-    removeItem: (id) => { state.items = state.items.filter(i => i.id !== id); notify(); },
-    updateQuantity: (id, q) => { state.items = state.items.map(i => i.id === id ? {...i, quantity: q} : i); notify(); },
-    clearCart: () => { state.items = []; notify(); }
-  };
-  return selector ? selector(actions) : actions;
-};
-export default useCartStore;
+export function useCart() {
+  return useContext(CartContext);
+}

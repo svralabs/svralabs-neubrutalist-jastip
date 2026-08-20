@@ -4,24 +4,20 @@ import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import { ThemeProvider } from './context/ThemeContext';
 import ErrorBoundary from './components/ErrorBoundary';
-import ProductCatalog from './pages/ProductCatalog';
-import Checkout from './pages/Checkout';
-import PaymentReceipt from './pages/PaymentReceipt';
-import Auth from './pages/Auth';
-import LandingPage from './pages/LandingPage';
-import ShoppingCart from './pages/ShoppingCart';
-import CustomerDashboard from './pages/CustomerDashboard';
+import AuthPage from './pages/AuthPage';
+import CustomerHomePage from './pages/CustomerHomePage';
+import OrderTrackingPage from './pages/OrderTrackingPage';
+import OrderHistoryPage from './pages/OrderHistoryPage';
+import ShoppingCartPage from './pages/ShoppingCartPage';
 
 function ScreenBar() {
   const loc = useLocation();
   const navs = [
-    { path: '/', label: 'ProductCatalog' },
-    { path: '/checkout', label: 'Checkout' },
-    { path: '/paymentreceipt', label: 'PaymentReceipt' },
-    { path: '/auth', label: 'Auth' },
-    { path: '/landingpage', label: 'LandingPage' },
-    { path: '/shoppingcart', label: 'ShoppingCart' },
-    { path: '/customerdashboard', label: 'CustomerDashboard' }
+    { path: '/', label: 'AuthPage' },
+    { path: '/customerhomepage', label: 'CustomerHomePage' },
+    { path: '/ordertrackingpage', label: 'OrderTrackingPage' },
+    { path: '/orderhistorypage', label: 'OrderHistoryPage' },
+    { path: '/shoppingcartpage', label: 'ShoppingCartPage' }
   ];
 
   return (
@@ -57,14 +53,12 @@ export default function App() {
               <ScreenBar />
               <div className="pt-10 min-h-screen">
                 <Routes>
-                  <Route path='/' element={<ProductCatalog />} />
-        <Route path='/checkout' element={<Checkout />} />
-        <Route path='/paymentreceipt' element={<PaymentReceipt />} />
-        <Route path='/auth' element={<Auth />} />
-        <Route path='/landingpage' element={<LandingPage />} />
-        <Route path='/shoppingcart' element={<ShoppingCart />} />
-        <Route path='/customerdashboard' element={<CustomerDashboard />} />
-                  <Route path="*" element={<ProductCatalog />} />
+                  <Route path='/' element={<AuthPage />} />
+        <Route path='/customerhomepage' element={<CustomerHomePage />} />
+        <Route path='/ordertrackingpage' element={<OrderTrackingPage />} />
+        <Route path='/orderhistorypage' element={<OrderHistoryPage />} />
+        <Route path='/shoppingcartpage' element={<ShoppingCartPage />} />
+                  <Route path="*" element={<AuthPage />} />
                 </Routes>
               </div>
             </BrowserRouter>

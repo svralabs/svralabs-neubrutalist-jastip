@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: #FFD700;
+    --on-primary: #000000;
+    --primary-container: #FFD700;
+    --on-primary-container: #000000;
+    --secondary: #00FFFF;
+    --on-secondary: #000000;
+    --secondary-container: #00FFFF;
+    --on-secondary-container: #000000;
+    --surface: #FFFFFF;
+    --on-surface: #000000;
+    --on-surface-variant: #6B7280;
+    --accent-pink: #FF69B4;
+    --accent-purple: #800080;
+    --accent-orange: #FFA500;
+  }
+
+  .neubrutalist-btn {
+    border: 2px solid #000000;
+    box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  }
+
+  .neubrutalist-btn:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+  }
+
+  .neubrutalist-btn:active {
+    transform: translate(4px, 4px);
+    box-shadow: none;
+  }
+
+  .neubrutalist-shadow {
+    box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  }
+
+  .font-headline-main-mobile {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .font-label-bold {
+    font-weight: 700;
+  }
+
+  .text-label-bold {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  .font-heading-card {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+
+  .text-heading-card {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+
+  .font-body-md {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  .text-body-md {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  .px-gutter {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .gap-lg {
+    gap: 1.5rem;
+  }
+
+  .px-margin {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .py-xs {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+
+  .py-sm {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .py-md {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .px-md {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .px-lg {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .px-xl {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .mb-md {
+    margin-bottom: 1rem;
+  }
+
+  .mb-lg {
+    margin-bottom: 1.5rem;
+  }
+
+  .mb-xl {
+    margin-bottom: 2rem;
+  }
+
+  .mt-lg {
+    margin-top: 1.5rem;
+  }
+
+  .mt-md {
+    margin-top: 1rem;
+  }
+
+  .pl-sm {
+    padding-left: 0.5rem;
+  }
+
+  .border-l-4 {
+    border-left-width: 4px;
+  }
+}

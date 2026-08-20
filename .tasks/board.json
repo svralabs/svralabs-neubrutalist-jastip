@@ -1,24 +1,26 @@
 {
   "project_name": "svralabs-neubrutalist-jastip",
-  "architecture_summary": "Modular React app. Pages in src/pages/. Shared UI in src/components/. Routes via React Router. State: Zustand. Styling: Tailwind CSS. Auth: JWT. API: REST. No SSR. Ponytail: static build, add Next.js if SEO needed.",
+  "architecture_summary": "Modular React app. Pages in src/pages/. Shared UI in src/components/. CSS modules for styling. React Router v6 for navigation. No state management lib; useContext + useReducer for global state. Ponytail: global state ceiling 500 LOC, add Redux if exceed. Tailwind CSS for utility classes. Mobile-first responsive design.",
   "tickets": [
     {
       "id": "TASK-001",
       "role": "frontend",
       "model": "hermes-auto",
-      "title": "Create landing page (src/pages/LandingPage.jsx)",
-      "source_screen": "jastip_landing_page",
-      "description": "Convert Stitch jastip_landing_page to React. Keep neubrutalist aesthetic. Static content only. No API calls. Responsive: mobile, tablet, desktop.",
+      "title": "Create base layout and design system components",
+      "source_screen": "thirtyspace_component_showcase_inputs,thirtyspace_button_showcase,thirtyspace_badge_showcase,thirtyspace_sidebar_showcase",
+      "description": "Extract reusable components from Thirtyspace design system. Buttons, inputs, badges, sidebar. Style with Tailwind. Export from src/components/ui/.",
       "target_files": [
-        "src/pages/LandingPage.jsx",
-        "src/components/HeroSection.jsx",
-        "src/components/CTAButton.jsx"
+        "src/components/ui/Button.jsx",
+        "src/components/ui/Input.jsx",
+        "src/components/ui/Badge.jsx",
+        "src/components/ui/Sidebar.jsx",
+        "src/styles/globals.css"
       ],
       "acceptance_criteria": [
-        "Pixel-perfect match Stitch design",
-        "Tailwind classes only, no custom CSS",
-        "Mobile-first breakpoints",
-        "All links stubbed, log to console"
+        "Components match Stitch design pixel-perfect",
+        "Variants (primary/secondary/disabled) work",
+        "Responsive breakpoints match design",
+        "Storybook stories for each component"
       ],
       "status": "DONE"
     },
@@ -26,18 +28,20 @@
       "id": "TASK-002",
       "role": "frontend",
       "model": "hermes-auto",
-      "title": "Build auth screens (src/pages/Auth.jsx)",
+      "title": "Build authentication flow",
       "source_screen": "authentication_screen,admin_team_login_jastip_control_center,thirtyspace_login_register_mobile",
-      "description": "Single Auth.jsx page. Tabs: login, register, admin login. Form validation: email format, password min 8 chars. Submit: POST /api/auth/login. Store JWT in httpOnly cookie. Redirect: /dashboard on success.",
+      "description": "Create AuthPage component. Login, register, forgot password forms. Form validation with react-hook-form. JWT auth flow. Redirect logic. Ponytail: no social auth, add when requested.",
       "target_files": [
-        "src/pages/Auth.jsx",
-        "src/components/AuthForm.jsx"
+        "src/pages/AuthPage.jsx",
+        "src/hooks/useAuth.js",
+        "src/services/auth.js"
       ],
       "acceptance_criteria": [
+        "Login/register forms match design",
         "Form validation errors show inline",
-        "JWT cookie secure, SameSite=Strict",
-        "Loading state: disable submit button, show spinner",
-        "Error messages from API displayed"
+        "JWT stored securely (httpOnly cookie)",
+        "Redirect after auth works",
+        "Protected routes redirect to login"
       ],
       "status": "DONE"
     },
@@ -45,18 +49,18 @@
       "id": "TASK-003",
       "role": "frontend",
       "model": "hermes-auto",
-      "title": "Customer dashboard (src/pages/CustomerDashboard.jsx)",
+      "title": "Implement customer home dashboard",
       "source_screen": "customer_home_jastiphub,jastip_home_screen_mobile",
-      "description": "Dashboard with order stats, quick actions, event calendar. Fetch data: GET /api/dashboard. Calendar: react-big-calendar. Ponytail: static mock data, replace with API call in TASK-007.",
+      "description": "Create CustomerHomePage. Hero section, featured products, quick actions. Mobile responsive. Data from mock API. Ponytail: no real API integration, add when backend ready.",
       "target_files": [
-        "src/pages/CustomerDashboard.jsx",
-        "src/components/OrderStats.jsx",
-        "src/components/EventCalendar.jsx"
+        "src/pages/CustomerHomePage.jsx",
+        "src/mocks/products.js"
       ],
       "acceptance_criteria": [
-        "Responsive grid layout",
-        "Calendar events clickable, log event ID",
-        "Quick action buttons stubbed, log action type"
+        "Layout matches Stitch design",
+        "Mobile/desktop breakpoints work",
+        "Featured products carousel functional",
+        "Quick action buttons navigate correctly"
       ],
       "status": "DONE"
     },
@@ -64,19 +68,20 @@
       "id": "TASK-004",
       "role": "frontend",
       "model": "hermes-auto",
-      "title": "Product catalog (src/pages/ProductCatalog.jsx)",
-      "source_screen": "product_catalog,jastip_catalog_jepang_trip_1,jastip_catalog_jepang_trip_2",
-      "description": "Grid view. Filter: category, price range. Sort: price, popularity. Infinite scroll. Add to cart: POST /api/cart. Ponytail: static mock data, replace with API call in TASK-007.",
+      "title": "Build product catalog and detail pages",
+      "source_screen": "product_catalog,jastip_catalog_jepang_trip_1,jastip_catalog_jepang_trip_2,product_detail_order_form",
+      "description": "Create ProductCatalogPage and ProductDetailPage. Grid/list views. Filters. Add-to-cart functionality. Ponytail: no search, add when requested.",
       "target_files": [
-        "src/pages/ProductCatalog.jsx",
+        "src/pages/ProductCatalogPage.jsx",
+        "src/pages/ProductDetailPage.jsx",
         "src/components/ProductCard.jsx",
-        "src/components/FilterSidebar.jsx"
+        "src/components/FilterPanel.jsx"
       ],
       "acceptance_criteria": [
-        "Filters update URL query params",
-        "Infinite scroll: 12 items per load",
-        "Add to cart button disabled if out of stock",
-        "Product detail modal on click"
+        "Catalog grid matches design",
+        "Filters update product list",
+        "Product detail page shows all fields",
+        "Add-to-cart updates cart state"
       ],
       "status": "DONE"
     },
@@ -84,18 +89,20 @@
       "id": "TASK-005",
       "role": "frontend",
       "model": "hermes-auto",
-      "title": "Shopping cart (src/pages/ShoppingCart.jsx)",
-      "source_screen": "shopping_cart,ringkasan_order_checkout",
-      "description": "Cart items list. Update quantity: PATCH /api/cart. Remove item: DELETE /api/cart. Checkout button: redirect to /checkout. Ponytail: static mock data, replace with API call in TASK-007.",
+      "title": "Implement shopping cart and checkout flow",
+      "source_screen": "shopping_cart,customer_checkout_form,ringkasan_order_checkout,jastip_order_form_mobile",
+      "description": "Create ShoppingCartPage, CheckoutPage, OrderSummaryPage. Cart state management. Checkout form with validation. Ponytail: no payment gateway, mock only.",
       "target_files": [
-        "src/pages/ShoppingCart.jsx",
-        "src/components/CartItem.jsx"
+        "src/pages/ShoppingCartPage.jsx",
+        "src/pages/CheckoutPage.jsx",
+        "src/pages/OrderSummaryPage.jsx",
+        "src/context/CartContext.js"
       ],
       "acceptance_criteria": [
-        "Quantity input min=1, max=stock",
-        "Remove item confirmation modal",
-        "Subtotal, tax, total calculated client-side",
-        "Checkout button disabled if cart empty"
+        "Cart page shows items, quantities, totals",
+        "Checkout form validates all fields",
+        "Order summary matches design",
+        "Mobile checkout flow works"
       ],
       "status": "DONE"
     },
@@ -103,19 +110,19 @@
       "id": "TASK-006",
       "role": "frontend",
       "model": "hermes-auto",
-      "title": "Checkout flow (src/pages/Checkout.jsx, src/pages/PaymentReceipt.jsx)",
-      "source_screen": "customer_checkout_form,payment_receipt_upload_screen,ringkasan_order_checkout",
-      "description": "Multi-step form: shipping, payment, review. Submit: POST /api/orders. Upload receipt: POST /api/payments/upload. Ponytail: static mock data, replace with API call in TASK-007.",
+      "title": "Build order history and tracking",
+      "source_screen": "order_history_status,order_history_tracking,cancellation_out_of_stock_resolution",
+      "description": "Create OrderHistoryPage and OrderTrackingPage. Status badges. Cancellation flow. Ponytail: no real-time updates, add when websockets available.",
       "target_files": [
-        "src/pages/Checkout.jsx",
-        "src/pages/PaymentReceipt.jsx",
-        "src/components/CheckoutStepper.jsx"
+        "src/pages/OrderHistoryPage.jsx",
+        "src/pages/OrderTrackingPage.jsx",
+        "src/components/OrderStatusBadge.jsx"
       ],
       "acceptance_criteria": [
-        "Form validation: required fields, email format",
-        "Receipt upload: PNG/JPG only, max 2MB",
-        "Order summary updates on step change",
-        "Success page shows order ID, redirect to /orders after 5s"
+        "Order list matches design",
+        "Status badges show correct colors",
+        "Tracking page shows timeline",
+        "Cancellation flow works"
       ],
       "status": "DONE"
     },
@@ -123,20 +130,20 @@
       "id": "TASK-007",
       "role": "frontend",
       "model": "hermes-auto",
-      "title": "API integration layer (src/api/)",
-      "source_screen": "",
-      "description": "Axios instance. Base URL: /api. Headers: Authorization: Bearer <JWT>. Error handling: 401 \u2192 redirect to /auth, 400-500 \u2192 show toast. Ponytail: mock responses for TASK-001 to TASK-006, replace with real API calls.",
+      "title": "Implement admin dashboard and management",
+      "source_screen": "admin_dashboard_overview,admin_customer_management,admin_event_management_screen,admin_event_catalog_management,admin_invoice_fees_manager,admin_payment_cancellation_dashboard",
+      "description": "Create AdminDashboardPage, CustomerManagementPage, EventManagementPage. Data tables with sorting/filtering. Ponytail: no bulk actions, add when requested.",
       "target_files": [
-        "src/api/index.js",
-        "src/api/auth.js",
-        "src/api/cart.js",
-        "src/api/orders.js"
+        "src/pages/admin/AdminDashboardPage.jsx",
+        "src/pages/admin/CustomerManagementPage.jsx",
+        "src/pages/admin/EventManagementPage.jsx",
+        "src/components/admin/DataTable.jsx"
       ],
       "acceptance_criteria": [
-        "JWT auto-included in requests",
-        "401 errors clear JWT cookie, redirect to /auth",
-        "Error messages user-friendly",
-        "Mock responses match API spec"
+        "Admin layout matches design",
+        "Data tables sort/filter",
+        "Customer/event management CRUD works",
+        "Responsive admin interface"
       ],
       "status": "DONE"
     },
@@ -145,24 +152,24 @@
       "role": "frontend",
       "model": "hermes-auto",
       "title": "App shell, navigation bar, and router wiring (src/App.jsx)",
-      "source_screen": "thirtyspace_sidebar_showcase,thirtyspace_404_navigation_bento_variant",
-      "description": "React Router v6. Layout: sidebar (desktop), bottom nav (mobile). Routes: /, /auth, /dashboard, /catalog, /cart, /checkout, /orders, /admin. 404 page. Ponytail: static routes, add lazy loading if bundle > 200KB.",
+      "source_screen": "thirtyspace_sidebar_showcase,thirtyspace_hero_section",
+      "description": "Create App shell. Navigation bar. React Router setup. Route guards. 404 page. Ponytail: no lazy loading, add when bundle >500KB.",
       "target_files": [
         "src/App.jsx",
-        "src/components/Layout.jsx",
-        "src/components/Sidebar.jsx",
-        "src/components/BottomNav.jsx"
+        "src/components/Navbar.jsx",
+        "src/routes.js",
+        "src/pages/NotFoundPage.jsx"
       ],
       "acceptance_criteria": [
-        "Active route highlighted in nav",
-        "Sidebar collapsible on desktop",
-        "Bottom nav hidden on desktop",
+        "All routes defined in routes.js",
+        "Navbar shows correct items per role",
+        "Route guards protect admin routes",
         "404 page matches design",
-        "Protected routes: redirect to /auth if no JWT"
+        "Responsive navigation works"
       ],
       "status": "DONE"
     }
   ],
   "status": "IN_PROGRESS",
-  "updated_at": "2026-08-20 16:38:12"
+  "updated_at": "2026-08-20 20:01:00"
 }
