@@ -1,147 +1,131 @@
-import { StoreProvider } from './context/StoreContext';
-import React from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import CancellationOutOfStockResolution from './pages/CancellationOutOfStockResolution';
-import AdminTeamLoginJastipControlCenter from './pages/AdminTeamLoginJastipControlCenter';
-import AdminDashboardOverview from './pages/AdminDashboardOverview';
-import PaymentReceiptUploadScreen from './pages/PaymentReceiptUploadScreen';
-import OrderHistoryTracking from './pages/OrderHistoryTracking';
-import AdminEventManagementScreen from './pages/AdminEventManagementScreen';
-import KalenderEventJastip from './pages/KalenderEventJastip';
-import CustomerHomeJastiphub from './pages/CustomerHomeJastiphub';
-import AdminCustomerManagement from './pages/AdminCustomerManagement';
-import RingkasanOrderCheckout from './pages/RingkasanOrderCheckout';
-import AuthenticationScreen from './pages/AuthenticationScreen';
-import ProductDetailOrderForm from './pages/ProductDetailOrderForm';
-import OrderHistoryStatus from './pages/OrderHistoryStatus';
-import ShoppingCart from './pages/ShoppingCart';
-import AiProfitCalculatorBudgetingPanel2 from './pages/AiProfitCalculatorBudgetingPanel2';
-import JastipLandingPage from './pages/JastipLandingPage';
-import PaymentCancellationGateway from './pages/PaymentCancellationGateway';
-import ProductCatalog from './pages/ProductCatalog';
-import ShopperListWorkspace from './pages/ShopperListWorkspace';
-import AiProfitCalculatorBudgetingPanel1 from './pages/AiProfitCalculatorBudgetingPanel1';
-import AdminInvoiceFeesManager from './pages/AdminInvoiceFeesManager';
-import AdminMasterDashboard from './pages/AdminMasterDashboard';
-import CustomerCheckoutForm from './pages/CustomerCheckoutForm';
-import AdminPaymentCancellationDashboard from './pages/AdminPaymentCancellationDashboard';
-import WellnessDashboard from './pages/WellnessDashboard';
-import AdminEventCatalogManagement from './pages/AdminEventCatalogManagement';
-import JastipOrderFormMobile from './pages/JastipOrderFormMobile';
-import ThirtyspaceTableShowcase from './pages/ThirtyspaceTableShowcase';
-import JastipHomeScreenMobile from './pages/JastipHomeScreenMobile';
-import ThirtyspaceHeroSection from './pages/ThirtyspaceHeroSection';
-import ThirtyspaceSidebarShowcase from './pages/ThirtyspaceSidebarShowcase';
-import JastipCatalogJepangTrip1 from './pages/JastipCatalogJepangTrip1';
-import ThirtyspaceLoaderShowcase from './pages/ThirtyspaceLoaderShowcase';
-import ThirtyspaceLoginRegisterMobile from './pages/ThirtyspaceLoginRegisterMobile';
-import ThirtyspaceBadgeShowcase from './pages/ThirtyspaceBadgeShowcase';
-import Thirtyspace404NavigationBentoVariant from './pages/Thirtyspace404NavigationBentoVariant';
-import JastipCatalogJepangTrip2 from './pages/JastipCatalogJepangTrip2';
-import ThirtyspaceButtonShowcase from './pages/ThirtyspaceButtonShowcase';
-import ThirtyspaceComponentShowcaseInputs from './pages/ThirtyspaceComponentShowcaseInputs';
+import React from 'react'
+
+const AVATARS = {
+  anita: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAu4MTe-vi2D5Qqx71KBhPO0royHOctitxzdzoRz5MOXxCB1gqk5J8knlrHG4d2wS0JHWHFEu30wAoK6w-71x9MyxDMqwn7kJ2vtu6aIBNmCn3PCdn2Wqj5DKmkyxNgzqJxzsNfJ3trkj1L665_OUVheZVFdXh7do_nhtIQ6DP96Tbil8d8H5VzoH6H_m1c2u_7Sk-jGV8c_RzG8iJXemlvr16K0cZwmWv1As0Wy7mKoGzMsbLhSUoR',
+  budi: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC70Q-RGyFyRYZYuDyd7xJ6BL0ndi6_ene3uixHD-ZXcmf3CRf3f9N0gL9ENxpj4x9Aex1IwD2nsVPEV33AV7bhuLsqR4CxZ2aQIp-8poHUuQS87h14Efi4LPHRMOT9dbUQ5ATrfcCRET_WqpMTokg7_cW4xKod4ivb60BHoRfF-owNPKC7kZWpkEv6fpPCJXmlWphCW8cj9R0igMlVAiykwg6q4wkq9wGlfOqZLWBtBQ49ECUnKoMM',
+}
+
+const METRICS = [
+  { bg: 'bg-secondary-container', label: 'Order Masuk', labelCls: 'text-on-secondary-container', value: '38', sub: 'Orders', big: true },
+  { bg: 'bg-accent-pink', label: 'Omset Event', labelCls: 'text-badge-pink-text', value: 'Rp 14.5M', sub: 'Total IDR', big: false },
+  { bg: 'bg-accent-yellow', label: 'Sover List', labelCls: 'text-badge-yellow-text', value: '12', sub: 'Pending Items', big: true },
+  { bg: 'bg-primary-container', label: 'Lunas', labelCls: 'text-on-primary-container', value: '24', sub: 'Transaksi', big: true },
+]
+
+const BARS = [
+  { day: 'MON', h: '40%', cls: 'bg-primary' },
+  { day: 'TUE', h: '70%', cls: 'bg-secondary' },
+  { day: 'WED', h: '55%', cls: 'bg-accent-yellow' },
+  { day: 'THU', h: '90%', cls: 'bg-primary' },
+  { day: 'FRI', h: '65%', cls: 'bg-secondary' },
+  { day: 'SAT', h: '80%', cls: 'bg-accent-yellow' },
+  { day: 'SUN', h: '45%', cls: 'bg-primary' },
+]
 
 export default function App() {
   return (
-    <BrowserRouter>
-    <StoreProvider>
-      <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-indigo-500 selection:text-white">
-        {/* Navigation Header for Multi-Screen Stitch Pages */}
-        <header className="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800 px-6 py-3 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></div>
-            <span className="font-bold text-sm tracking-wide text-white capitalize">neubrutalist-jastip</span>
-          </div>
-          <nav className="flex items-center space-x-2 overflow-x-auto py-1">
-            <Link to="/" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Cancellation Out Of Stock Resolution</Link>
-            <Link to="/admin-team-login-jastip-control-center" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Admin Team Login Jastip Control Center</Link>
-            <Link to="/admin-dashboard-overview" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Admin Dashboard Overview</Link>
-            <Link to="/payment-receipt-upload-screen" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Payment Receipt Upload Screen</Link>
-            <Link to="/order-history-tracking" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Order History Tracking</Link>
-            <Link to="/admin-event-management-screen" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Admin Event Management Screen</Link>
-            <Link to="/kalender-event-jastip" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Kalender Event Jastip</Link>
-            <Link to="/customer-home-jastiphub" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Customer Home Jastiphub</Link>
-            <Link to="/admin-customer-management" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Admin Customer Management</Link>
-            <Link to="/ringkasan-order-checkout" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Ringkasan Order Checkout</Link>
-            <Link to="/authentication-screen" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Authentication Screen</Link>
-            <Link to="/product-detail-order-form" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Product Detail Order Form</Link>
-            <Link to="/order-history-status" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Order History Status</Link>
-            <Link to="/shopping-cart" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Shopping Cart</Link>
-            <Link to="/ai-profit-calculator-budgeting-panel-2" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Ai Profit Calculator Budgeting Panel 2</Link>
-            <Link to="/jastip-landing-page" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Jastip Landing Page</Link>
-            <Link to="/payment-cancellation-gateway" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Payment Cancellation Gateway</Link>
-            <Link to="/product-catalog" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Product Catalog</Link>
-            <Link to="/shopper-list-workspace" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Shopper List Workspace</Link>
-            <Link to="/ai-profit-calculator-budgeting-panel-1" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Ai Profit Calculator Budgeting Panel 1</Link>
-            <Link to="/admin-invoice-fees-manager" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Admin Invoice Fees Manager</Link>
-            <Link to="/admin-master-dashboard" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Admin Master Dashboard</Link>
-            <Link to="/customer-checkout-form" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Customer Checkout Form</Link>
-            <Link to="/admin-payment-cancellation-dashboard" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Admin Payment Cancellation Dashboard</Link>
-            <Link to="/wellness-dashboard" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Wellness Dashboard</Link>
-            <Link to="/admin-event-catalog-management" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Admin Event Catalog Management</Link>
-            <Link to="/jastip-order-form-mobile" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Jastip Order Form Mobile</Link>
-            <Link to="/thirtyspace-table-showcase" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Thirtyspace Table Showcase</Link>
-            <Link to="/jastip-home-screen-mobile" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Jastip Home Screen Mobile</Link>
-            <Link to="/thirtyspace-hero-section" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Thirtyspace Hero Section</Link>
-            <Link to="/thirtyspace-sidebar-showcase" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Thirtyspace Sidebar Showcase</Link>
-            <Link to="/jastip-catalog-jepang-trip-1" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Jastip Catalog Jepang Trip 1</Link>
-            <Link to="/thirtyspace-loader-showcase" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Thirtyspace Loader Showcase</Link>
-            <Link to="/thirtyspace-login-register-mobile" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Thirtyspace Login Register Mobile</Link>
-            <Link to="/thirtyspace-badge-showcase" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Thirtyspace Badge Showcase</Link>
-            <Link to="/thirtyspace-404-navigation-bento-variant" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Thirtyspace 404 Navigation Bento Variant</Link>
-            <Link to="/jastip-catalog-jepang-trip-2" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Jastip Catalog Jepang Trip 2</Link>
-            <Link to="/thirtyspace-button-showcase" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Thirtyspace Button Showcase</Link>
-            <Link to="/thirtyspace-component-showcase-inputs" className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-white/10 transition">Thirtyspace Component Showcase Inputs</Link>
-          </nav>
-        </header>
+    <div className="text-on-surface antialiased pb-32">
+      {/* TopAppBar */}
+      <header className="w-full sticky top-0 bg-surface z-50 flex items-center justify-between px-lg py-md border-b border-black">
+        <div className="flex items-center gap-2">
+          <span className="material-symbols-outlined text-primary font-bold">shopping_bag</span>
+          <h1 className="font-headline-lg text-headline-lg font-black text-primary">JastipHub</h1>
+        </div>
+        <button className="neubrutalist-border p-2 rounded-lg active:scale-95 transition-all">
+          <span className="material-symbols-outlined">notifications</span>
+        </button>
+      </header>
 
-        {/* Dynamic Routed Pages */}
-        <main className="flex-1 w-full">
-          <Routes>
-          <Route path="/" element={<CancellationOutOfStockResolution />} />
-          <Route path="/admin-team-login-jastip-control-center" element={<AdminTeamLoginJastipControlCenter />} />
-          <Route path="/admin-dashboard-overview" element={<AdminDashboardOverview />} />
-          <Route path="/payment-receipt-upload-screen" element={<PaymentReceiptUploadScreen />} />
-          <Route path="/order-history-tracking" element={<OrderHistoryTracking />} />
-          <Route path="/admin-event-management-screen" element={<AdminEventManagementScreen />} />
-          <Route path="/kalender-event-jastip" element={<KalenderEventJastip />} />
-          <Route path="/customer-home-jastiphub" element={<CustomerHomeJastiphub />} />
-          <Route path="/admin-customer-management" element={<AdminCustomerManagement />} />
-          <Route path="/ringkasan-order-checkout" element={<RingkasanOrderCheckout />} />
-          <Route path="/authentication-screen" element={<AuthenticationScreen />} />
-          <Route path="/product-detail-order-form" element={<ProductDetailOrderForm />} />
-          <Route path="/order-history-status" element={<OrderHistoryStatus />} />
-          <Route path="/shopping-cart" element={<ShoppingCart />} />
-          <Route path="/ai-profit-calculator-budgeting-panel-2" element={<AiProfitCalculatorBudgetingPanel2 />} />
-          <Route path="/jastip-landing-page" element={<JastipLandingPage />} />
-          <Route path="/payment-cancellation-gateway" element={<PaymentCancellationGateway />} />
-          <Route path="/product-catalog" element={<ProductCatalog />} />
-          <Route path="/shopper-list-workspace" element={<ShopperListWorkspace />} />
-          <Route path="/ai-profit-calculator-budgeting-panel-1" element={<AiProfitCalculatorBudgetingPanel1 />} />
-          <Route path="/admin-invoice-fees-manager" element={<AdminInvoiceFeesManager />} />
-          <Route path="/admin-master-dashboard" element={<AdminMasterDashboard />} />
-          <Route path="/customer-checkout-form" element={<CustomerCheckoutForm />} />
-          <Route path="/admin-payment-cancellation-dashboard" element={<AdminPaymentCancellationDashboard />} />
-          <Route path="/wellness-dashboard" element={<WellnessDashboard />} />
-          <Route path="/admin-event-catalog-management" element={<AdminEventCatalogManagement />} />
-          <Route path="/jastip-order-form-mobile" element={<JastipOrderFormMobile />} />
-          <Route path="/thirtyspace-table-showcase" element={<ThirtyspaceTableShowcase />} />
-          <Route path="/jastip-home-screen-mobile" element={<JastipHomeScreenMobile />} />
-          <Route path="/thirtyspace-hero-section" element={<ThirtyspaceHeroSection />} />
-          <Route path="/thirtyspace-sidebar-showcase" element={<ThirtyspaceSidebarShowcase />} />
-          <Route path="/jastip-catalog-jepang-trip-1" element={<JastipCatalogJepangTrip1 />} />
-          <Route path="/thirtyspace-loader-showcase" element={<ThirtyspaceLoaderShowcase />} />
-          <Route path="/thirtyspace-login-register-mobile" element={<ThirtyspaceLoginRegisterMobile />} />
-          <Route path="/thirtyspace-badge-showcase" element={<ThirtyspaceBadgeShowcase />} />
-          <Route path="/thirtyspace-404-navigation-bento-variant" element={<Thirtyspace404NavigationBentoVariant />} />
-          <Route path="/jastip-catalog-jepang-trip-2" element={<JastipCatalogJepangTrip2 />} />
-          <Route path="/thirtyspace-button-showcase" element={<ThirtyspaceButtonShowcase />} />
-          <Route path="/thirtyspace-component-showcase-inputs" element={<ThirtyspaceComponentShowcaseInputs />} />
-          <Route path="*" element={<CancellationOutOfStockResolution />} />
-          </Routes>
-        </main>
-      </div>
-        </StoreProvider>
-</BrowserRouter>
-  );
+      <main className="px-lg py-xl space-y-xl">
+        {/* Title */}
+        <section>
+          <h2 className="font-headline-lg text-headline-lg text-text-primary tracking-tight">Dashboard Admin</h2>
+          <p className="font-body-md text-text-secondary">Overview performa jastip hari ini.</p>
+        </section>
+
+        {/* Metrics */}
+        <section className="grid grid-cols-2 gap-md">
+          {METRICS.map((m) => (
+            <div key={m.label} className={`neubrutalist-border ${m.bg} p-lg flex flex-col justify-between min-h-[120px] rounded-lg`}>
+              <span className={`font-label-caps text-label-caps uppercase ${m.labelCls} opacity-80`}>{m.label}</span>
+              <div>
+                <div className={m.big ? 'font-headline-lg text-headline-lg' : 'font-headline-md text-headline-md leading-tight'}>{m.value}</div>
+                <div className="font-label-bold text-label-bold mt-1">{m.sub}</div>
+              </div>
+            </div>
+          ))}
+        </section>
+
+        {/* Top Customers */}
+        <section className="neubrutalist-border bg-surface rounded-xl p-lg">
+          <div className="flex items-center justify-between mb-lg">
+            <h3 className="font-headline-md text-headline-md">Top Customers</h3>
+            <span className="material-symbols-outlined text-accent-yellow" style={{ fontVariationSettings: "'FILL' 1" }}>stars</span>
+          </div>
+          <div className="space-y-md">
+            <div className="flex items-center justify-between p-md neubrutalist-border bg-surface-container-low rounded-lg">
+              <div className="flex items-center gap-md">
+                <div className="w-10 h-10 neubrutalist-border rounded-full bg-cover bg-center" style={{ backgroundImage: `url('${AVATARS.anita}')` }} />
+                <div>
+                  <div className="font-headline-md text-[1rem]">Anita S.</div>
+                  <div className="font-body-sm text-text-secondary">12 Orders</div>
+                </div>
+              </div>
+              <span className="neubrutalist-border bg-badge-purple-bg text-badge-purple-text font-label-caps text-label-caps px-sm py-1 rounded-full">VIP</span>
+            </div>
+            <div className="flex items-center justify-between p-md neubrutalist-border bg-surface-container-low rounded-lg">
+              <div className="flex items-center gap-md">
+                <div className="w-10 h-10 neubrutalist-border rounded-full bg-cover bg-center" style={{ backgroundImage: `url('${AVATARS.budi}')` }} />
+                <div>
+                  <div className="font-headline-md text-[1rem]">Budi R.</div>
+                  <div className="font-body-sm text-text-secondary">8 Orders</div>
+                </div>
+              </div>
+              <span className="neubrutalist-border bg-badge-green-bg text-badge-green-text font-label-caps text-label-caps px-sm py-1 rounded-full">ACTIVE</span>
+            </div>
+          </div>
+        </section>
+
+        {/* Weekly Performance */}
+        <section className="neubrutalist-border bg-surface rounded-xl p-lg">
+          <h3 className="font-headline-md text-headline-md mb-lg">Weekly Performance</h3>
+          <div className="h-40 flex items-end justify-around gap-2 px-sm">
+            {BARS.map((b) => (
+              <div key={b.day} className="flex flex-col items-center gap-2 w-full">
+                <div className={`w-full ${b.cls} border border-black rounded-t-sm transition-all hover:scale-x-105`} style={{ height: b.h }} />
+                <span className="font-label-caps text-[10px]">{b.day}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Quick Actions */}
+        <section className="neubrutalist-border bg-surface-container-highest rounded-xl p-lg">
+          <h3 className="font-headline-md text-headline-md mb-md">Quick Actions</h3>
+          <div className="grid grid-cols-2 gap-sm">
+            <button className="bg-surface neubrutalist-border p-md rounded-lg flex items-center gap-2 hover:bg-surface-container active:translate-x-0.5 active:translate-y-0.5 transition-all">
+              <span className="material-symbols-outlined text-primary">add_box</span>
+              <span className="font-label-bold">New Item</span>
+            </button>
+            <button className="bg-surface neubrutalist-border p-md rounded-lg flex items-center gap-2 hover:bg-surface-container active:translate-x-0.5 active:translate-y-0.5 transition-all">
+              <span className="material-symbols-outlined text-secondary">print</span>
+              <span className="font-label-bold">Labels</span>
+            </button>
+          </div>
+        </section>
+      </main>
+
+      {/* BottomNav */}
+      <nav className="fixed bottom-0 left-0 right-0 z-50 flex justify-around items-center px-lg py-sm bg-surface mb-4 mx-auto w-[90%] max-w-md border border-black rounded-full neubrutalist-shadow">
+        <div className="bg-primary-container text-on-primary-container rounded-full p-2 border border-black transition-all hover:scale-110 active:scale-95">
+          <span className="material-symbols-outlined block" style={{ fontVariationSettings: "'FILL' 1" }}>home</span>
+        </div>
+        {['calendar_today', 'receipt_long', 'person'].map((icon) => (
+          <div key={icon} className="text-on-surface-variant p-2 transition-all hover:scale-110 active:scale-95">
+            <span className="material-symbols-outlined block">{icon}</span>
+          </div>
+        ))}
+      </nav>
+    </div>
+  )
 }
